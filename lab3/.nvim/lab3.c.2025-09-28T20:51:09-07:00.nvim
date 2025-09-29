@@ -1,0 +1,38 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+void print(char **inputs) {
+  for(int i = 0; i < 5; i++) {
+    if(inputs[i] != NULL) printf("%s\n", inputs[i]);
+  }
+}
+
+int main() {
+
+  char *words[5] = {NULL, NULL, NULL, NULL, NULL};
+  size_t len = 0;
+  ssize_t num_char;
+
+  while (1) {
+
+    for(int i = 0; i < 5; i++) {
+      
+      printf("Enter input: ");
+      num_char = getline(&words[i], &len, stdin);
+      if (num_char == -1) {
+        perror("getline failed");
+        exit(EXIT_FAILURE);
+      }
+      words[i][num_char - 1] = '\0';
+      if(strcmp(words[i], "print") == 0) print(words);
+    }
+
+  }
+
+  for(int i = 0; i < 5; i++) free(words[i]);
+  return 0;
+}
