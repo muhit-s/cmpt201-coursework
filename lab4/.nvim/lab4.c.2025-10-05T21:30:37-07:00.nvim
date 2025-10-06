@@ -1,0 +1,19 @@
+#define _DEFAULT_SOURCE
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+
+struct header {
+  uint64_t size;
+  struct header *next;
+};
+
+int main() {
+  void *start = sbrk(0);
+  printf("program_break before: %p\n", start);
+  sbrk(256);
+  void *after = sbrk(0);
+  printf("program_break after:  %p\n", after);
+
+  return 0;
+}

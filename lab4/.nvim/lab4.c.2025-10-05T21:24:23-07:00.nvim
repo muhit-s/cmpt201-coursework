@@ -1,0 +1,36 @@
+#define _DEFAULT_SOURCE
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+
+struct header {
+  uint64_t size;
+  struct header *next;
+};
+
+int main() {
+  int *program_break = sbrk(256);
+  printf("program_break - 256: %p", program_break - 256);
+  printf("program_break - 128: %p", program_break - 128);
+  struct header *first = (struct header *)(program_break - 256);
+  struct header *second = (struct header *)(program_break - 128);
+
+  printf("first: %p\nsecond: %p\n", first, second);
+
+  first->size = 127;
+  second->size = 127;
+
+  printf("hi\n");
+  first->next = second;
+  second->next = (struct header *)program_break;
+
+  printf("first block:       %p", first);
+  printf("second block:      %p", second);
+
+  printf("first block size:  %ld", first->size);
+  printf("first block next:  %p", first->next);
+  printf("second block size: %ld", second->size);
+  printf("second block next: %p", second->next);
+
+  return 0;
+}

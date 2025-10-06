@@ -1,0 +1,24 @@
+#define _DEFAULT_SOURCE
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+
+struct header {
+  uint64_t size;
+  struct header *next;
+};
+
+int main() {
+  int *first_start = sbrk(256);
+
+  struct header *first = (struct header *)first_start;
+  struct header *second = (struct header *)(first_start + 128);
+
+  first->size = 128;
+  first->next = second;
+
+  second->size = 128;
+  second->next = second + 128;
+
+  return 0;
+}

@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
+
+struct header {
+  uint64_t size;
+  struct header* next;
+};
+
+int main() {
+  printf("Program break: %d\n", sbrk(0));
+  return 0;
+}
