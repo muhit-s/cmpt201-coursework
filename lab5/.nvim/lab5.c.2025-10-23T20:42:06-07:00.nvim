@@ -70,11 +70,11 @@ int find_worst_fit(struct header *free_list_ptr, uint64_t size) {
 
 int main(void) {
 
-  struct header *free_block1 = (struct header *)malloc(sizeof(struct header));
-  struct header *free_block2 = (struct header *)malloc(sizeof(struct header));
-  struct header *free_block3 = (struct header *)malloc(sizeof(struct header));
-  struct header *free_block4 = (struct header *)malloc(sizeof(struct header));
-  struct header *free_block5 = (struct header *)malloc(sizeof(struct header));
+  struct header *free_block1 = (struct header*) malloc(sizeof(struct header));
+  struct header *free_block2 = (struct header*) malloc(sizeof(struct header));
+  struct header *free_block3 = (struct header*) malloc(sizeof(struct header));
+  struct header *free_block4 = (struct header*) malloc(sizeof(struct header));
+  struct header *free_block5 = (struct header*) malloc(sizeof(struct header));
 
   initialize_block(free_block1, 6, free_block2, 1);
   initialize_block(free_block2, 12, free_block3, 2);
@@ -93,12 +93,3 @@ int main(void) {
   printf("The ID for Worst-Fit algorithm is: %d\n", worst_fit_id);
   return 0;
 }
-
-// In each free call
-//    store the start and end of newly freed block
-//    for each element in free linked list
-//        if adjacent to newly freed block
-//            store adjacent
-//    calculate size from adjacent + newly freed block
-//    make header at leftmost address and update size to be the total
-
