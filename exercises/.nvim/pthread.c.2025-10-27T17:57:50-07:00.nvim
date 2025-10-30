@@ -1,0 +1,21 @@
+#define _GNU_SOURCE
+#include <pthread.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+void *thread_function(void *arg) {
+  char *msg = (char *)arg;
+  return (void *)(strlen(msg));
+}
+
+int main() {
+  char *str = "hello";
+  pthread_t thread = 0;
+  pthread_create(&thread, NULL, thread_function, str);
+
+  void *ret_val = 0;
+  pthread_join(thread, &ret_val);
+  printf("%ld", (uint64_t)ret_val);
+}
