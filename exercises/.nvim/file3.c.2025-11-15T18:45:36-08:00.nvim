@@ -1,0 +1,13 @@
+#include <fcntl.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int main() {
+  FILE *f = fopen("tmp", "w+");
+
+  fprintf(f, "testing\n");
+  while (1) {
+    sleep(3);
+  }
+}

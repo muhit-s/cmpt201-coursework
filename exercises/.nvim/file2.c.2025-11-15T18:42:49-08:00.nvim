@@ -1,0 +1,13 @@
+#include <fcntl.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int main() {
+  int file = open("tmp", O_RDWR | O_CREAT | O_TRUNC,
+                  S_IRUSR | S_IWUSR); //, S_IRUSR | S_IWUSR);
+  while (1) {
+    write(file, "this is a test", 14);
+    sleep(3);
+  }
+}

@@ -1,0 +1,11 @@
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+  char *path = "test";
+  int file = open(path, O_RDWR, O_CREAT);
+  write(file, "this is a test", 14);
+  lseek(file, 7, SEEK_SET);
+  char *result = 
+}

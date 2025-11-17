@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include <fcntl.h>
+
+int main() {
+  char *path = "test";
+  int file = open(path, O_RDWR, O_CREAT);
+  write(file, "Sup", 3);
+}
