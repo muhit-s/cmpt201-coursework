@@ -38,14 +38,14 @@ void *handle_client(void *arg) {
 
   while (1) {
     char buf[BUF_SIZE];
-    int status = read(client->cfd, buf, BUF_SIZE);
+    int status = read(client->cfd, buf, BUF_SIZE) != -1;
     if (status <= 0)
       break;
     buf[status] = '\0';
     pthread_mutex_lock(&count_mutex);
     total_message_count++;
     pthread_mutex_unlock(&count_mutex);
-    printf("Msg #   %d; Client ID %d: %s", total_message_count,
+    printf("Msg #   %d; Client ID %d: %s\n", total_message_count,
            client->client_id, buf);
   }
   free(arg);
